@@ -1,0 +1,25 @@
+
+<!doctype html><html><head><link rel="stylesheet" href="/static/style.css"></head><body>
+<div class="dash">
+<h2>Welcome {{user}}</h2>
+<div>Role: {{role}} | <a href="/logout">Logout</a></div>
+<div class="stats">Total {{total}} | Done {{done}} | Pending {{pending}} | In Progress {{in_progress}} | Overdue {{overdue}}</div>
+{% if role == 'admin' %}
+<form action="/project" method="post"><input name="name" placeholder="Project name"><button>Add Project</button></form>
+{% endif %}
+<form method="post">
+<input name="title" placeholder="Task title">
+<select name="project">
+<option value="">Select Project</option>
+{% for p in projects %}
+<option value="{{p.name}}">{{p.name}}</option>
+{% endfor %}
+</select>
+<input name="assignee" placeholder="Assign To">
+<input type="date" name="due">
+<button>Add Task</button></form>
+<table><tr><th>Title</th><th>Project</th><th>User</th><th>Due</th><th>Status</th><th>Action</th></tr>
+{% for t in tasks %}
+<tr><td>{{t.title}}</td><td>{{t.project_name}}</td><td>{{t.assignee_name}}</td><td>{{t.due_value}}</td><td>{{t.status}}</td><td>{% if role == 'admin' %}<a href="/done/{{t.id}}">Done</a> | <a href="/edit-task/{{t.id}}">Edit</a> | <a href="/delete-task/{{t.id}}" onclick="return confirm('Delete this task?')">Delete</a>{% else %}-{% endif %}</td></tr>
+{% endfor %}
+</table></div></body></html>

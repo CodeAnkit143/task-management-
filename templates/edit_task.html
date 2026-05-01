@@ -1,0 +1,20 @@
+<!doctype html><html><head><link rel="stylesheet" href="/static/style.css"></head><body>
+<div class="container">
+<div class="left">
+<h1>Edit Task</h1>
+<form method="post">
+<input name="title" value="{{task.title}}" placeholder="Task title" required>
+<input name="project" value="{{task.project_name}}" placeholder="Project">
+<input name="assignee" value="{{task.assignee_name}}" placeholder="Assign To">
+<input type="date" name="due" value="{{task.due_value}}">
+<select name="status" required>
+{% for s in statuses %}
+<option value="{{s}}" {% if task.status == s %}selected{% endif %}>{{s}}</option>
+{% endfor %}
+</select>
+<button>Update Task</button>
+</form>
+<p><a href="/dashboard">Back to dashboard</a></p>
+</div>
+<div class="right"><img src="/static/campaign-creators-RSc6D7bO0fA-unsplash.jpg" alt="Task management illustration"></div>
+</div></body></html>
